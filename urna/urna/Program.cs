@@ -15,28 +15,13 @@ namespace urna
     {
         static void Main(string[] args)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
 
-            using (TransactionScope transacao = new TransactionScope())
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            PartidoRepositorio partidoRepositorio = new PartidoRepositorio();
+
+            if (partidoRepositorio.validarSePartidoExiste("Partido HelloWorld", "PH"))
             {
-                IDbCommand comando = connection.CreateCommand();
-                comando.CommandText =
-                    "UPDATE Cargo SET Nome = @paramNome WHERE IDCargo = @paramIdCargo";
-
-                comando.AddParameter("paramNome", "Prefeito");
-                comando.AddParameter("paramIdCargo", 1);
-
-                connection.Open();
-
-                int linhasAfetadas = comando.ExecuteNonQuery();
-
-                transacao.Complete();
-
-                connection.Close();
-            }
-
-
+                partidoRepositorio.CadastrarPartido(new Partido("Partido HelloWorld", "bla bla bla", "PH"));
+            }            
 
             Console.Read();
         }

@@ -37,5 +37,37 @@ namespace urna
                 connection.Close();
             }
         }
+
+        public bool validarSePartidoExiste(string nome, string sigla)
+        {
+            var partidoNaoExiste = true;
+            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                IDbCommand comando = connection.CreateCommand();
+                comando.CommandText =
+                    "select COUNT(1) as total_partidos from Partido where Nome = @paramNome and Sigla = @paramSigla";
+
+                comando.AddParameter("paramNome", nome);
+                comando.AddParameter("paramSigla", sigla);
+
+                connection.Open();
+
+                IDataReader reader = comando.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var totalPartidos = Convert.ToInt32(reader["total_partidos"]);
+                    if ((totalPartidos == 0))
+                    {
+                        partidoNaoExiste = true;
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return partidoNaoExiste;
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace urna
 
         public bool validarSePartidoExiste(string nome, string sigla)
         {
-            var partidoNaoExiste = true;
+            var partidoNaoExiste = false;
             string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
@@ -60,7 +60,7 @@ namespace urna
                     var totalPartidos = Convert.ToInt32(reader["total_partidos"]);
                     if ((totalPartidos == 0))
                     {
-                        partidoNaoExiste = false;
+                        partidoNaoExiste = true;
                     }
                 }
 

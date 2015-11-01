@@ -60,7 +60,7 @@ namespace urna
                     var totalPartidos = Convert.ToInt32(reader["total_partidos"]);
                     if ((totalPartidos == 0))
                     {
-                        partidoNaoExiste = true;
+                        partidoNaoExiste = false;
                     }
                 }
 

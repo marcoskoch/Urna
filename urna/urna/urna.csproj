@@ -45,8 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cargo.cs" />
+    <Compile Include="CargoRepositorio.cs" />
     <Compile Include="IDbCommandExtensions.cs" />
     <Compile Include="IRepositorio.cs" />
+    <Compile Include="Partido.cs" />
+    <Compile Include="PartidoRepositorio.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

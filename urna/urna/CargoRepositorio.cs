@@ -35,8 +35,9 @@ namespace urna
                     string nome = reader["Nome"].ToString();
                     char situacao = Convert.ToChar(reader["Situacao"]);
 
-                    cargoEncontrado = new Cargo(idDb, nome)
+                    cargoEncontrado = new Cargo(nome)
                     {
+                        IDCargo = idDb,
                         Situacao = situacao
                     };
                 }

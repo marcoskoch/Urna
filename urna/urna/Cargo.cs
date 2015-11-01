@@ -12,9 +12,8 @@ namespace urna
         public string Nome { get; set; }
         public char Situacao { get; set; }
 
-        public Cargo(int id, string nome)
+        public Cargo(string nome)
         {
-            IDCargo = id;
             Nome = nome;
         }
     }

@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 
 namespace urna
 {
-    class CargoRepositorio : IRepositorio<Cargo>
+    public class CargoRepositorio : IRepositorio<Cargo>
     {
         public Cargo BuscarPorId(int id)
         {
             Cargo cargoEncontrado = null;
 
-            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+            string connectionString = @"Server = USUARIO-PC\SQLEXPRESS; Database = Urna_local; Trusted_Connection = True";
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 IDbCommand comando = connection.CreateCommand();
                 comando.CommandText =
-                    "SELECT * FROM Cargo WHERE IdCargo = @paramIdCargo";
+                    "SELECT IDCargo, Nome, Situacao FROM Cargo WHERE IDCargo = @paramIdCargo";
 
                 comando.AddParameter("paramIdCargo", id);
 
@@ -31,7 +31,7 @@ namespace urna
 
                 if (reader.Read())
                 {
-                    int idDb = Convert.ToInt32(reader["IdCargo"]);
+                    int idDb = Convert.ToInt32(reader["IDCargo"]);
                     string nome = reader["Nome"].ToString();
                     char situacao = Convert.ToChar(reader["Situacao"]);
 
@@ -45,6 +45,42 @@ namespace urna
             }
 
             return cargoEncontrado;
+        }
+
+        public void Cadastrar(Cargo cargo)
+        {
+            string connectionString = @"Server = USUARIO-PC\SQLEXPRESS; Database = Urna_local; Trusted_Connection = True";
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                IDbCommand comando = connection.CreateCommand();
+
+                comando.CommandText =
+                    "INSERT INTO Cargo (Nome, Situacao) VALUES (@paramNomeCargo, @SituacaoCargo);";
+                comando.AddParameter("paramNomeCargo", cargo.Nome);
+                comando.AddParameter("SituacaoCargo", cargo.Situacao);
+
+                connection.Open();
+                comando.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        public void Editar(Cargo cargo)
+        {
+            string connectionString = @"Server = USUARIO-PC\SQLEXPRESS; Database = Urna_local; Trusted_Connection = True";
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                IDbCommand comando = connection.CreateCommand();
+                comando.CommandText =
+                    "UPDATE Cargo SET Nome = @paramNome, Situacao = @paramSituacao WHERE IDCargo = " + cargo.IDCargo;
+
+                comando.AddParameter("paramNome", cargo.Nome);
+                comando.AddParameter("paramSituacao", cargo.Situacao);
+
+                connection.Open();
+                comando.ExecuteNonQuery();
+                connection.Close();
+            }
         }
     }
 }

@@ -6,18 +6,15 @@ using System.Threading.Tasks;
 
 namespace urna
 {
-    class Cargo
+    public class Cargo
     {
-        public int IdCargo { get; private set; }
-
-        public string Nome { get; private set; }
-
+        public int IDCargo { get; set; }
+        public string Nome { get; set; }
         public char Situacao { get; set; }
 
-
-        public Cargo(int idCargo, string nome)
+        public Cargo(int id, string nome)
         {
-            IdCargo = idCargo;
+            IDCargo = id;
             Nome = nome;
         }
     }

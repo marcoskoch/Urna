@@ -107,3 +107,22 @@ namespace urna
         }
     }
 }
+/*DEVE FICAR NA CAMADA DE UI
+ public bool ValidarExistencia(Cargo cargo)
+        {
+            string connectionString = @"Server = USUARIO-PC\SQLEXPRESS; Database = Urna_local; Trusted_Connection = True";
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                IDbCommand comando = connection.CreateCommand();
+                comando.CommandText =
+                    "SELECT * FROM Cargo WHERE Nome = @paramNome";
+                comando.AddParameter("paramNome", cargo.Nome);
+
+                connection.Open();
+
+                IDataReader reader = comando.ExecuteReader();
+
+                return reader.Read();
+            }
+        }
+*/

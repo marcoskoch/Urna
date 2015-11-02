@@ -105,7 +105,7 @@ namespace urna
                 transacao.Complete();
             }
         }
-        public bool ValidarExistencia(Cargo cargo)
+        public bool ValidarExistencia(string nome)
         {
             string connectionString = @"Server = USUARIO-PC\SQLEXPRESS; Database = Urna_local; Trusted_Connection = True";
             using (IDbConnection connection = new SqlConnection(connectionString))
@@ -113,7 +113,7 @@ namespace urna
                 IDbCommand comando = connection.CreateCommand();
                 comando.CommandText =
                     "SELECT * FROM Cargo WHERE Nome = @paramNome";
-                comando.AddParameter("paramNome", cargo.Nome);
+                comando.AddParameter("paramNome", nome);
 
                 connection.Open();
 

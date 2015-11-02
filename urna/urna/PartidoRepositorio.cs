@@ -64,6 +64,7 @@ namespace urna
             }
         }
 
+        //UPDATE SEM WHERE
         public void Atualizar(Partido partido)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
@@ -125,7 +126,7 @@ namespace urna
                 transacao.Complete();
             }
         }
-        public bool validarSePartidoExiste(string nome, string sigla)
+        public bool ValidarSePartidoExiste(string nome, string sigla)
         {
             var partidoNaoExiste = false;
             string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;

@@ -11,7 +11,7 @@ using System.Transactions;
 
 namespace urna
 {
-    class CandidatoRepositorio : IRepositorio<Candidato>
+    public class CandidatoRepositorio : IRepositorio<Candidato>
     {
         public Candidato BuscarPorId(int id)
         {

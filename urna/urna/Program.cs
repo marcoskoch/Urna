@@ -17,10 +17,11 @@ namespace urna
         {
 
 
-            PartidoRepositorio repo = new PartidoRepositorio();
-            Partido part = new Partido("Partido das Exatas Tensas", "Deixando o mundo mais tenso!", "PET");
+            Eleicoes eleicao = new Eleicoes();
 
-            repo.DeletarPorId(1005);
+            Cargo cargo = new Cargo("Presidente do Hue", 'A');
+
+            eleicao.DesativarCargo("Presidente do Hue");
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Transactions;
 
 namespace urna
 {
-    class CargoRepositorio : IRepositorio<Cargo>
+    public class CargoRepositorio : IRepositorio<Cargo>
     {
         public Cargo BuscarPorId(int id)
         {
@@ -77,7 +77,7 @@ namespace urna
 
 
                 comando.CommandText =
-                    "UPDATE Cargo SET Nome=@paramNome,Situacao=@paramSituacao";
+                    "UPDATE Cargo SET Situacao=@paramSituacao WHERE Nome=@paramNome";
 
                 connection.Open();
                 comando.ExecuteNonQuery();
@@ -105,10 +105,7 @@ namespace urna
                 transacao.Complete();
             }
         }
-    }
-}
-/*DEVE FICAR NA CAMADA DE UI
- public bool ValidarExistencia(Cargo cargo)
+        public bool ValidarExistencia(Cargo cargo)
         {
             string connectionString = @"Server = USUARIO-PC\SQLEXPRESS; Database = Urna_local; Trusted_Connection = True";
             using (IDbConnection connection = new SqlConnection(connectionString))
@@ -125,4 +122,6 @@ namespace urna
                 return reader.Read();
             }
         }
-*/
+    }
+}
+

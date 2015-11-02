@@ -11,8 +11,8 @@ using System.Transactions;
 
 namespace urna
 {
-    class PartidoRepositorio : IRepositorio<Partido>
-    { 
+    public class PartidoRepositorio : IRepositorio<Partido>
+    {
         public Partido BuscarPorId(int id)
         {
             Partido PartidoEncontrado = null;
@@ -125,10 +125,6 @@ namespace urna
                 transacao.Complete();
             }
         }
-    }
-}
-/*DEVE FICAR NA CAMADA DE INTERFACE
-
         public bool validarSePartidoExiste(string nome, string sigla)
         {
             var partidoNaoExiste = false;
@@ -159,4 +155,7 @@ namespace urna
             }
 
             return partidoNaoExiste;
-        }*/
+        }
+
+    }
+}

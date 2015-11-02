@@ -31,9 +31,7 @@ namespace urna
                 comando.AddParameter("paramSigla", partido.Sigla);
 
                 connection.Open();
-
-                IDataReader reader = comando.ExecuteReader();
-
+                comando.ExecuteNonQuery();
                 connection.Close();
             }
         }

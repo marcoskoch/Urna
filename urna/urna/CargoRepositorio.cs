@@ -11,7 +11,7 @@ using System.Transactions;
 
 namespace urna
 {
-    class CargoRepositorio : IRepositorio<Cargo>
+    public class CargoRepositorio : IRepositorio<Cargo>
     {
         public Cargo BuscarPorId(int id)
         {
@@ -77,7 +77,7 @@ namespace urna
 
 
                 comando.CommandText =
-                    "UPDATE Cargo SET Nome=@paramNome,Situacao=@paramSituacao";
+                    "UPDATE Cargo SET Situacao=@paramSituacao WHERE Nome=@paramNome";
 
                 connection.Open();
                 comando.ExecuteNonQuery();
@@ -104,19 +104,63 @@ namespace urna
                 comando.ExecuteNonQuery();
                 transacao.Complete();
             }
+
         }
-    }
-}
-/*DEVE FICAR NA CAMADA DE UI
- public bool ValidarExistencia(Cargo cargo)
+
+        public void AtualizarPorNome(string nome, Cargo cargo)
         {
-            string connectionString = @"Server = USUARIO-PC\SQLEXPRESS; Database = Urna_local; Trusted_Connection = True";
+            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+            using (TransactionScope transacao = new TransactionScope())
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                IDbCommand comando = connection.CreateCommand();
+                comando.AddParameter("@paramNomeAntigo", nome);
+                comando.AddParameter("@paramNome", cargo.Nome);
+                comando.AddParameter("@paramSituacao", cargo.Situacao);
+
+
+                comando.CommandText =
+                    "UPDATE Cargo SET Nome=@paramNome,Situacao=@paramSituacao WHERE Nome=@paramNomeAntigo";
+
+                connection.Open();
+                comando.ExecuteNonQuery();
+                transacao.Complete();
+            }
+        }
+
+        public int BuscarIDDoCargoPorNome(string nome)
+        {
+            int idDesteCargo = -1;
+            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+            using(IDbConnection connection = new SqlConnection(connectionString))
+            {
+                IDbCommand comando = connection.CreateCommand();
+                comando.AddParameter("paramNome", nome);
+
+                comando.CommandText =
+                    "SELECT IDCargo FROM Cargo WHERE Nome= @paramNome;";
+
+                connection.Open();
+                IDataReader reader = comando.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    idDesteCargo = int.Parse(reader["IDCargo"].ToString());
+                }
+                
+            }
+            return idDesteCargo;
+        }
+
+        public bool ValidarExistencia(string nome)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 IDbCommand comando = connection.CreateCommand();
                 comando.CommandText =
                     "SELECT * FROM Cargo WHERE Nome = @paramNome";
-                comando.AddParameter("paramNome", cargo.Nome);
+                comando.AddParameter("paramNome", nome);
 
                 connection.Open();
 
@@ -125,4 +169,6 @@ namespace urna
                 return reader.Read();
             }
         }
-*/
+    }
+}
+

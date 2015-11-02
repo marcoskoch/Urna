@@ -17,10 +17,26 @@ namespace urna
         {
 
 
-            PartidoRepositorio repo = new PartidoRepositorio();
-            Partido part = new Partido("Partido das Exatas Tensas", "Deixando o mundo mais tenso!", "PET");
+            Eleicoes eleicao = new Eleicoes();
+            
+            Partido partidoCOL = new Partido("Partido de Medellín", "Nosotros, somos bandidos, no sapos hijo de puta", "CM");
 
-            repo.DeletarPorId(1005);
+            Console.WriteLine(eleicao.CadastrarPartido(partidoCOL));
+            
+            
+            string nomeCompleto = "Pablo Emilio Escobar Gaviria";
+            string nomePop = "RobinHood paisa";
+            DateTime dataNasc = new DateTime(1949,12,1);
+            string regTRE = "0192874";
+            int idPart = 5;
+            int numero = 1983;
+            int idCargo = 1;
+            Candidato cand = new Candidato(nomeCompleto, nomePop, dataNasc, regTRE, 
+                idPart, "", numero, idCargo, true);
+
+            Console.WriteLine(eleicao.CadastrarCandidato(cand));
+
+            Console.ReadLine();
         }
     }
 }

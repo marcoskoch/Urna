@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace urna
 {
-    class Cargo
+    public class Cargo
     {
         public string Nome { get; private set; }
         public char Situacao { get; set; }

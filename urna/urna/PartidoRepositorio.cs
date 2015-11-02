@@ -11,8 +11,8 @@ using System.Transactions;
 
 namespace urna
 {
-    class PartidoRepositorio : IRepositorio<Partido>
-    { 
+    public class PartidoRepositorio : IRepositorio<Partido>
+    {
         public Partido BuscarPorId(int id)
         {
             Partido PartidoEncontrado = null;
@@ -57,13 +57,12 @@ namespace urna
                 comando.AddParameter("paramSigla", partido.Sigla);
 
                 connection.Open();
-
-                IDataReader reader = comando.ExecuteReader();
-
+                comando.ExecuteNonQuery();
                 connection.Close();
             }
         }
 
+        //UPDATE SEM WHERE
         public void Atualizar(Partido partido)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
@@ -125,11 +124,7 @@ namespace urna
                 transacao.Complete();
             }
         }
-    }
-}
-/*DEVE FICAR NA CAMADA DE INTERFACE
-
-        public bool validarSePartidoExiste(string nome, string sigla)
+        public bool ValidarSeNaoPartidoExiste(string nome, string sigla)
         {
             var partidoNaoExiste = false;
             string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
@@ -159,4 +154,7 @@ namespace urna
             }
 
             return partidoNaoExiste;
-        }*/
+        }
+
+    }
+}

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace urna
 {
-    class Candidato
+    public class Candidato
     {
         public string NomeCompleto { get; private set; }
         public string NomePopular { get; private set; }

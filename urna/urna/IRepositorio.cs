@@ -9,5 +9,12 @@ namespace urna
     interface IRepositorio<T>
     {
         T BuscarPorId(int id);
+
+        void Cadastrar(T tipo);
+
+        void Atualizar(T tipo);
+
+        void AtualizarPorId(int id, T tipo);
+
     }
 }

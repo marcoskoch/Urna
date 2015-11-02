@@ -16,14 +16,12 @@ namespace urna
         static void Main(string[] args)
         {
 
-            PartidoRepositorio partidoRepositorio = new PartidoRepositorio();
 
-            if (partidoRepositorio.validarSePartidoExiste("Partido HelloWorld", "PH"))
-            {
-                partidoRepositorio.CadastrarPartido(new Partido("Partido HelloWorld", "bla bla bla", "PH"));
-            }            
+            Eleicoes eleicao = new Eleicoes();
 
-            Console.Read();
+            Cargo cargo = new Cargo("Presidente do Hue", 'A');
+
+            eleicao.DesativarCargo("Presidente do Hue");
         }
     }
 }

@@ -8,17 +8,13 @@ namespace urna
 {
     class Cargo
     {
-        public int IdCargo { get; private set; }
-
         public string Nome { get; private set; }
-
         public char Situacao { get; set; }
 
-
-        public Cargo(int idCargo, string nome)
+        public Cargo(string Nome, char Situacao)
         {
-            IdCargo = idCargo;
-            Nome = nome;
+            this.Nome = Nome;
+            this.Situacao = Situacao;
         }
     }
 }

@@ -19,10 +19,45 @@ namespace urna
             BaseDeCandidatos = new CandidatoRepositorio();
         }
 
+        public string CadastrarCandidato(Candidato candidato)
+        {
+            string message;
+            bool nomeEstaVazio = string.IsNullOrEmpty(candidato.NomeCompleto) || string.IsNullOrEmpty(candidato.NomePopular);
+            if (nomeEstaVazio)
+            {
+                message = "O nome popular e o nome Completo não podem estar vazios";
+            }
+            else
+            {
+                int idCargoPrefeito = BaseDeCargos.BuscarIDDoCargoPorNome("Prefeito");
+
+                bool jaExistePrefeitoNestePartido = BaseDeCandidatos
+                    .ExisteCandidatoAPrefeitoNestePartido(idCargoPrefeito, candidato.IDPartido);
+
+                if(candidato.IDCargo == idCargoPrefeito && jaExistePrefeitoNestePartido)
+                {
+                    message = "Já existe um candidato a prefeito neste partido";
+                }
+                else
+                {
+                    if (BaseDeCandidatos.ValidarSeCandidatoExiste(candidato))
+                    {
+                        message = "O número, o registro TRE e o nome popular deve ser único";
+                    }
+                    else
+                    {
+                        BaseDeCandidatos.Cadastrar(candidato);
+                        message = "Candidato cadastrado com sucesso";
+                    }
+                }
+            }
+            return message;
+        }
+
         public string CadastrarPartido(Partido partido)
         {
             string message;
-            if(BaseDePartidos.ValidarSePartidoExiste(partido.Nome, partido.Sigla))
+            if(!(BaseDePartidos.ValidarSeNaoPartidoExiste(partido.Nome, partido.Sigla)))
             {
                 message = "Este partido já existe";
             }
@@ -37,7 +72,7 @@ namespace urna
         public string EditarPartido(int id, Partido partido)
         {
             string message;
-            if(BaseDePartidos.ValidarSePartidoExiste(partido.Nome, partido.Sigla))
+            if(!(BaseDePartidos.ValidarSeNaoPartidoExiste(partido.Nome, partido.Sigla)))
             {
                 message = "O partido deve ter nome e sigla únicos";
             }
@@ -75,6 +110,30 @@ namespace urna
             {
                 BaseDeCargos.Cadastrar(cargo);
                 message = "Cargo cadastrado com sucesso";
+            }
+            return message;
+        }
+
+        public string AtualizarCargoPorNome(string nome, Cargo cargo)
+        {
+            string message;
+            if (BaseDeCargos.ValidarExistencia(nome))
+            {
+                //Verifica se está tentando alterar o nome para o mesmo nome de outro cargo
+                //Se o nome for o mesmo do antigo tudo bem
+                if (!(nome.Equals(cargo.Nome)) && BaseDeCargos.ValidarExistencia(cargo.Nome))
+                {
+                    message = "Não é possível atualizar o nome do cargo para um nome que já existe";
+                }
+                else
+                {
+                    BaseDeCargos.AtualizarPorNome(nome, cargo);
+                    message = "Cargo atualizado com sucesso";
+                }
+            }
+            else
+            {
+                message = "Este cargo não existe";
             }
             return message;
         }

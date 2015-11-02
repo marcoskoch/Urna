@@ -124,7 +124,7 @@ namespace urna
                 transacao.Complete();
             }
         }
-        public bool ValidarSePartidoExiste(string nome, string sigla)
+        public bool ValidarSeNaoPartidoExiste(string nome, string sigla)
         {
             var partidoNaoExiste = false;
             string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;

@@ -260,6 +260,49 @@ namespace urna
                 transacao.Complete();
             }
         }
+
+        public bool ValidarSeCandidatoExiste(Candidato candidato)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+            using(IDbConnection connection = new SqlConnection(connectionString))
+            {
+                IDbCommand comando = connection.CreateCommand();
+
+                comando.AddParameter("paramNomePopular", candidato.NomePopular);
+                comando.AddParameter("paramRegistroTRE", candidato.RegistroTRE);
+                comando.AddParameter("paramNumero", candidato.Numero);
+
+                comando.CommandText =
+                    "SELECT * FROM Candidato WHERE " 
+                    +"NomePopular = @paramNomePopular OR RegistroTRE = @paramRegistroTRE OR Numero = @paramNumero";
+
+                connection.Open();
+
+                IDataReader reader = comando.ExecuteReader();
+
+                return reader.Read();
+            }
+        }
+
+        public bool ExisteCandidatoAPrefeitoNestePartido(int idCargoPrefeito, int idPartido)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+            using(IDbConnection connection = new SqlConnection(connectionString))
+            {
+                IDbCommand comando = connection.CreateCommand();
+                comando.AddParameter("paramIdCargoPrefeito", idCargoPrefeito);
+                comando.AddParameter("paramIdPartido", idPartido);
+
+                comando.CommandText =
+                    "SELECT * FROM Candidato WHERE IDPartido=@paramIdPartido AND IDCargo = @paramIdCargoPrefeito;";
+
+                connection.Open();
+
+                IDataReader reader = comando.ExecuteReader();
+
+                return reader.Read();
+            }
+        }
     }
 }
 

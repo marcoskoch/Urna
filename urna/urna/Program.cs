@@ -18,10 +18,25 @@ namespace urna
 
 
             Eleicoes eleicao = new Eleicoes();
+            
+            Partido partidoCOL = new Partido("Partido de Medellín", "Nosotros, somos bandidos, no sapos hijo de puta", "CM");
 
-            Cargo cargo = new Cargo("Presidente do Hue", 'A');
+            Console.WriteLine(eleicao.CadastrarPartido(partidoCOL));
+            
+            
+            string nomeCompleto = "Pablo Emilio Escobar Gaviria";
+            string nomePop = "RobinHood paisa";
+            DateTime dataNasc = new DateTime(1949,12,1);
+            string regTRE = "0192874";
+            int idPart = 5;
+            int numero = 1983;
+            int idCargo = 1;
+            Candidato cand = new Candidato(nomeCompleto, nomePop, dataNasc, regTRE, 
+                idPart, "", numero, idCargo, true);
 
-            eleicao.DesativarCargo("Presidente do Hue");
+            Console.WriteLine(eleicao.CadastrarCandidato(cand));
+
+            Console.ReadLine();
         }
     }
 }

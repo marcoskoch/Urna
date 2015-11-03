@@ -50,9 +50,9 @@ namespace urna
             }
         }
 
-        public Candidato BuscarPorPartido(int id)
+        public List<Candidato> BuscarPorPartido(int id)
         {
-            Candidato CandidatoEncontrado = null;
+            List<Candidato> CandidatosEncontrado = new List<Candidato>();
 
             string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
             using (IDbConnection connection = new SqlConnection(connectionString))
@@ -67,7 +67,7 @@ namespace urna
 
                 IDataReader reader = comando.ExecuteReader();
 
-                if (reader.Read())
+                while (reader.Read())
                 {
                     string nomeC = reader["NomeCompleto"].ToString();
                     string nomeP = reader["NomePopular"].ToString();
@@ -79,17 +79,17 @@ namespace urna
                     int idCargo = Convert.ToInt32(reader["IDCargo"]);
                     bool exibe = Convert.ToBoolean(reader["Exibe"]);
 
-                    CandidatoEncontrado = new Candidato(nomeC, nomeP, dataN, registro, idPartido, foto, numero, idCargo, exibe);
+                    CandidatosEncontrado.Add(new Candidato(nomeC, nomeP, dataN, registro, idPartido, foto, numero, idCargo, exibe));
 
                 }
 
-                return CandidatoEncontrado;
+                return CandidatosEncontrado;
             }
         }
 
-        public Candidato BuscarPorCargo(int id)
+        public List<Candidato> BuscarPorCargo(int id)
         {
-            Candidato CandidatoEncontrado = null;
+            List<Candidato> CandidatosEncontrado = new List<Candidato>();
 
             string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
             using (IDbConnection connection = new SqlConnection(connectionString))
@@ -104,7 +104,7 @@ namespace urna
 
                 IDataReader reader = comando.ExecuteReader();
 
-                if (reader.Read())
+                while (reader.Read())
                 {
                     string nomeC = reader["NomeCompleto"].ToString();
                     string nomeP = reader["NomePopular"].ToString();
@@ -116,11 +116,11 @@ namespace urna
                     int idCargo = Convert.ToInt32(reader["IDCargo"]);
                     bool exibe = Convert.ToBoolean(reader["Exibe"]);
 
-                    CandidatoEncontrado = new Candidato(nomeC, nomeP, dataN, registro, idPartido, foto, numero, idCargo, exibe);
+                    CandidatosEncontrado.Add(new Candidato(nomeC, nomeP, dataN, registro, idPartido, foto, numero, idCargo, exibe));
 
                 }
 
-                return CandidatoEncontrado;
+                return CandidatosEncontrado;
             }
         }
 
@@ -254,6 +254,24 @@ namespace urna
 
                 comando.CommandText =
                     "DELETE FROM Candidato WHERE IdCandidato = @paramIdCandidato";
+
+                connection.Open();
+                comando.ExecuteNonQuery();
+                transacao.Complete();
+            }
+        }
+
+        public void DeletarPorNomePopular(string nomePopular)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+            using (TransactionScope transacao = new TransactionScope())
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                IDbCommand comando = connection.CreateCommand();
+                comando.AddParameter("paramNome", nomePopular);
+
+                comando.CommandText =
+                    "DELETE FROM Candidato WHERE NomePopular = @paramNome";
 
                 connection.Open();
                 comando.ExecuteNonQuery();

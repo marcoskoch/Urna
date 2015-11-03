@@ -99,6 +99,23 @@ namespace urna
             return message;
         }
 
+        public string DeletarCandidato(Candidato candidato)
+        {
+            string message;
+            bool eCandidatoNuloOuBranco = "Voto Nulo".Equals(candidato.NomePopular)
+                || "Voto em Branco".Equals(candidato.NomePopular);
+            if (eCandidatoNuloOuBranco)
+            {
+                message = "Não é possível excluir candidado Voto Nulo e Candidato Voto Em Branco";
+            }
+            else
+            {
+                BaseDeCandidatos.DeletarPorNomePopular(candidato.NomePopular);
+                message = "Candidato deletado com sucesso";
+            }
+            return message;
+        }
+
         public string CadastrarPartido(Partido partido)
         {
             if (EleicaoComecou)

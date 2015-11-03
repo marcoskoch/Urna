@@ -155,7 +155,7 @@ namespace urna
 
                     CandidatoEncontrado = new Candidato(nomeC, nomeP, dataN, registro, idPartido, foto, numero, idCargo, exibe)
                     {
-                        IdCandidato = idCandidato;
+                        IdCandidato = idCandidato
                     };
 
                 }

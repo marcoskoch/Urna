@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>87cae09a-7e57-4fe5-8268-bacb04fd16f8</ProjectGuid>
+    <ProjectGuid>0a6f7fa0-f241-431a-9487-b7de896ebbe3</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Urna.Dominio</RootNamespace>

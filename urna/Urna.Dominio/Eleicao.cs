@@ -11,6 +11,8 @@ namespace urna
         public CargoRepositorio BaseDeCargos { get; set; }
         public PartidoRepositorio BaseDePartidos { get; set; }
         public CandidatoRepositorio BaseDeCandidatos { get; set; }
+        public VotoRepositorio BaseDeVotos { set; get; }
+        public EleitorRepositorio BaseDeEleitores { set; get; }
         public bool EleicaoComecou { get; set; }
         
         public Eleicao()
@@ -18,6 +20,8 @@ namespace urna
             BaseDeCargos = new CargoRepositorio();
             BaseDePartidos = new PartidoRepositorio();
             BaseDeCandidatos = new CandidatoRepositorio();
+            BaseDeEleitores = new EleitorRepositorio();
+            BaseDeVotos = new VotoRepositorio();
         }
 
         public void IniciarEleicoes()
@@ -241,6 +245,24 @@ namespace urna
             {
                 message = "Este cargo não existe";
             }
+            return message;
+        }
+
+        public string RegistrarVoto (string cpf, int numeroCandidato)
+        {
+            string message = "";
+            var candidato = BaseDeCandidatos.BuscarPorNumero(numeroCandidato);
+            var eleitor = BaseDeEleitores.validarEleitor(cpf);
+            if(eleitor && (candidato != null))
+            {
+                BaseDeVotos.RegistrarVoto(candidato.IdCandidato);
+                message = "Voto registrado";
+            } else if (candidato == null)
+            {
+                BaseDeVotos.RegistrarVoto(1);
+                message = "Voto nulo";
+            }
+
             return message;
         }
     }

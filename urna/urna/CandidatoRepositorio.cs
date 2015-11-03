@@ -143,6 +143,7 @@ namespace urna
 
                 if (reader.Read())
                 {
+                    int idCandidato = Convert.ToInt32(reader["IDCandidato"]);
                     string nomeC = reader["NomeCompleto"].ToString();
                     string nomeP = reader["NomePopular"].ToString();
                     DateTime dataN = Convert.ToDateTime(reader["DataNascimento"]);
@@ -152,7 +153,10 @@ namespace urna
                     int idCargo = Convert.ToInt32(reader["IDCargo"]);
                     bool exibe = Convert.ToBoolean(reader["Exibe"]);
 
-                    CandidatoEncontrado = new Candidato(nomeC, nomeP, dataN, registro, idPartido, foto, numero, idCargo, exibe);
+                    CandidatoEncontrado = new Candidato(nomeC, nomeP, dataN, registro, idPartido, foto, numero, idCargo, exibe)
+                    {
+                        IdCandidato = idCandidato;
+                    };
 
                 }
 

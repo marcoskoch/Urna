@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace urna
 {
-    class EleitorRepositorio
+    public class EleitorRepositorio
     {
         public bool validarEleitor (string cpf)
         {

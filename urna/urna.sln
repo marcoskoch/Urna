@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urna", "urna\Urna.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urna.Dominio", "Urna.Dominio\Urna.Dominio.csproj", "{0A6F7FA0-F241-431A-9487-B7DE896EBBE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urna.Testes", "Urna.Testes\Urna.Testes.csproj", "{9BA89F9F-2BF7-4D3A-998B-028DBD3B741C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0A6F7FA0-F241-431A-9487-B7DE896EBBE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A6F7FA0-F241-431A-9487-B7DE896EBBE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A6F7FA0-F241-431A-9487-B7DE896EBBE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BA89F9F-2BF7-4D3A-998B-028DBD3B741C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BA89F9F-2BF7-4D3A-998B-028DBD3B741C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BA89F9F-2BF7-4D3A-998B-028DBD3B741C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BA89F9F-2BF7-4D3A-998B-028DBD3B741C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

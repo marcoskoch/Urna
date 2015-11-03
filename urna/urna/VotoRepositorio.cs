@@ -12,7 +12,7 @@ namespace urna
 {
     public class VotoRepositorio
     {
-        public void RegistrarVoto(int numeroCandidato)
+        public void RegistrarVoto(int idCandidato)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
             using (IDbConnection connection = new SqlConnection(connectionString))
@@ -21,12 +21,37 @@ namespace urna
                 comando.CommandText =
                     "INSERT INTO Voto (IDCandidato) VALUES (@paramIdCandidato)";
 
-                comando.AddParameter("paramIdCandidato", numeroCandidato);
+                comando.AddParameter("paramIdCandidato", idCandidato);
 
                 connection.Open();
                 comando.ExecuteNonQuery();
                 connection.Close();
             }
+        }
+
+        public int BuscarNumeroDeVotosPorCandidato(int idCandidato)
+        {
+            int quantVotos = 0;
+
+            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                IDbCommand comando = connection.CreateCommand();
+                comando.CommandText =
+                    "Select COUNT(1) AS Numero_Votos FROM Voto WHERE IDCandidato=@paramIdCandidato";
+
+                comando.AddParameter("paramIdCandidato", idCandidato);
+
+                connection.Open();
+
+                IDataReader reader = comando.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    quantVotos = Convert.ToInt32(reader["Numero_Votos"]);
+                }
+            }
+            return quantVotos;
         }
     }
 }

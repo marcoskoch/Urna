@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace urna
 {
-    interface IRepositorio<T>
+    public interface IRepositorio<T>
     {
         T BuscarPorId(int id);
 

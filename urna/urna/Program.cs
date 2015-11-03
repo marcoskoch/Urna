@@ -15,7 +15,10 @@ namespace urna
     {
         static void Main(string[] args)
         {
+            VotoRepositorio repo = new VotoRepositorio();
+            IList<Estatistica> lista = repo.BuscarEstatistica();
 
+            Console.Read();
         }
     }
 }

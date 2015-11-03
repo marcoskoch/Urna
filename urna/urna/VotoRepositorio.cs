@@ -57,7 +57,7 @@ namespace urna
 
                 while (reader.Read())
                 {
-                    NumVotos = Convert.ToInt32(reader["Numero de VOtos"]);
+                    NumVotos = Convert.ToInt32(reader["Numero de Votos"]);
                     NomePopular = reader["NomePopular"].ToString();
                     NomeCargo = reader["Nome"].ToString();
                     SiglaPartido = reader["SiglaPartido"].ToString();

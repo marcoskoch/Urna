@@ -39,12 +39,7 @@ namespace urna
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 IDbCommand comando = connection.CreateCommand();
-                comando.CommandText =
-                    "SELECT votos.count(1) As [Numero de Votos],candidato.NomePopular,cargo.Nome ,partido.Sigla FROM Voto votos" +
-                    " INNER JOIN Candidato candidato ON votos.IDCandidato = candidato.IDCandidato"+
-                    " INNER JOIN Cargo cargo ON candidato.IDCargo = cargo.IDCargo"+
-                    " INNER JOIN Partido partido ON candidato.IDPartido = partido.IDPartido"+
-                    " GROUP BY votos.IDCandidato, candidato.NomePopular, cargo.Nome, partido.Sigla ORDER BY votos";
+                comando.CommandText = "SELECT count(1) As [Numero de Votos],candidato.NomePopular,cargo.Nome ,partido.Sigla FROM Voto votos INNER JOIN Candidato candidato ON votos.IDCandidato = candidato.IDCandidato INNER JOIN Cargo cargo ON candidato.IDCargo = cargo.IDCargo INNER JOIN Partido partido ON candidato.IDPartido = partido.IDPartido GROUP BY votos.IDCandidato, candidato.NomePopular, cargo.Nome, partido.Sigla";
 
                 connection.Open();
 
@@ -60,7 +55,7 @@ namespace urna
                     NumVotos = Convert.ToInt32(reader["Numero de Votos"]);
                     NomePopular = reader["NomePopular"].ToString();
                     NomeCargo = reader["Nome"].ToString();
-                    SiglaPartido = reader["SiglaPartido"].ToString();
+                    SiglaPartido = reader["Sigla"].ToString();
                     lista.Add(new Estatistica(NumVotos, NomePopular, NomeCargo, SiglaPartido));
 
                 }

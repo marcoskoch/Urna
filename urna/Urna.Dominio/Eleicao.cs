@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace urna
 {
-    public class Eleicoes
+    public class Eleicao
     {
         public CargoRepositorio BaseDeCargos { get; set; }
         public PartidoRepositorio BaseDePartidos { get; set; }
         public CandidatoRepositorio BaseDeCandidatos { get; set; }
 
-        public Eleicoes()
+        public Eleicao()
         {
             BaseDeCargos = new CargoRepositorio();
             BaseDePartidos = new PartidoRepositorio();

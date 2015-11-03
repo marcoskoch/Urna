@@ -49,7 +49,6 @@
     <Compile Include="CandidatoRepositorio.cs" />
     <Compile Include="Cargo.cs" />
     <Compile Include="CargoRepositorio.cs" />
-    <Compile Include="Eleicoes.cs" />
     <Compile Include="IDbCommandExtensions.cs" />
     <Compile Include="IRepositorio.cs" />
     <Compile Include="Partido.cs" />

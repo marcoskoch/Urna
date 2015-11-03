@@ -11,7 +11,8 @@ namespace urna
         public CargoRepositorio BaseDeCargos { get; set; }
         public PartidoRepositorio BaseDePartidos { get; set; }
         public CandidatoRepositorio BaseDeCandidatos { get; set; }
-
+        public bool EleicaoComecou { get; set; }
+        
         public Eleicao()
         {
             BaseDeCargos = new CargoRepositorio();
@@ -19,8 +20,15 @@ namespace urna
             BaseDeCandidatos = new CandidatoRepositorio();
         }
 
+        public void IniciarEleicoes()
+        {
+            EleicaoComecou = true;
+        }
+
         public string CadastrarCandidato(Candidato candidato)
         {
+            if (EleicaoComecou)
+                return "Alterações não podem ser feitas após o inicio das eleições";
             string message;
             bool nomeEstaVazio = string.IsNullOrEmpty(candidato.NomeCompleto) || string.IsNullOrEmpty(candidato.NomePopular);
             if (nomeEstaVazio)
@@ -56,6 +64,8 @@ namespace urna
 
         public string CadastrarPartido(Partido partido)
         {
+            if (EleicaoComecou)
+                return "Alterações não podem ser feitas após o inicio das eleições";
             string message;
             if(!(BaseDePartidos.ValidarSeNaoPartidoExiste(partido.Nome, partido.Sigla)))
             {
@@ -86,6 +96,8 @@ namespace urna
 
         public string DeletarPartido(int id)
         {
+            if (EleicaoComecou)
+                return "Alterações não podem ser feitas após o inicio das eleições";
             string message;
             if(BaseDePartidos.BuscarPorId(id) == null)
             {
@@ -101,6 +113,8 @@ namespace urna
 
         public string CadastrarCargo(Cargo cargo)
         {
+            if (EleicaoComecou)
+                return "Alterações não podem ser feitas após o inicio das eleições";
             string message;
             if (BaseDeCargos.ValidarExistencia(cargo.Nome))
             {
@@ -116,6 +130,8 @@ namespace urna
 
         public string AtualizarCargoPorNome(string nome, Cargo cargo)
         {
+            if (EleicaoComecou)
+                return "Alterações não podem ser feitas após o inicio das eleições";
             string message;
             if (BaseDeCargos.ValidarExistencia(nome))
             {
@@ -140,6 +156,8 @@ namespace urna
 
         public string AtivarCargo(string nome)
         {
+            if (EleicaoComecou)
+                return "Alterações não podem ser feitas após o inicio das eleições";
             string message;
             Cargo cargoAtivo = new Cargo(nome, 'A');
             if(BaseDeCargos.ValidarExistencia(nome))
@@ -156,6 +174,8 @@ namespace urna
 
         public string DesativarCargo(string nome)
         {
+            if (EleicaoComecou)
+                return "Alterações não podem ser feitas após o inicio das eleições";
             string message;
             Cargo cargoAtivo = new Cargo(nome, 'I');
             if (BaseDeCargos.ValidarExistencia(nome))

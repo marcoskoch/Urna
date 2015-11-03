@@ -20,5 +20,11 @@ namespace urna
             this.NomeCargo = NomeCargo;
             this.SiglaPartido = SiglaPartido;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Numero de votos: {0}, Nome popular: {1}, Cargo: {2}, Sigla partido: {3}\n\r ", 
+                                  NumeroVotos, NomePopular, NomeCargo, SiglaPartido);
+        }
     }
 }

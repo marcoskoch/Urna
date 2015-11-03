@@ -29,6 +29,17 @@ namespace urna
             EleicaoComecou = true;
         }
 
+        public string ExibirEstatistica()
+        {
+            IList<Estatistica> lista = BaseDeVotos.BuscarEstatistica();
+            string estatistica = "";
+            foreach (Estatistica stat in lista)
+            {
+                estatistica += stat.ToString();
+            }
+                return estatistica;
+        }
+
         public string CadastrarCandidato(Candidato candidato)
         {
             if (EleicaoComecou)

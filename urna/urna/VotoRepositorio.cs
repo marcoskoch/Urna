@@ -29,8 +29,6 @@ namespace urna
             }
         }
 
-        
-
         public IList<Estatistica> BuscarEstatistica()
         {
             IList <Estatistica> lista = new List<Estatistica>();
@@ -39,7 +37,11 @@ namespace urna
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 IDbCommand comando = connection.CreateCommand();
-                comando.CommandText = "SELECT count(1) As [Numero de Votos],candidato.NomePopular,cargo.Nome ,partido.Sigla FROM Voto votos INNER JOIN Candidato candidato ON votos.IDCandidato = candidato.IDCandidato INNER JOIN Cargo cargo ON candidato.IDCargo = cargo.IDCargo INNER JOIN Partido partido ON candidato.IDPartido = partido.IDPartido GROUP BY votos.IDCandidato, candidato.NomePopular, cargo.Nome, partido.Sigla";
+                comando.CommandText = "SELECT count(1) As [Numero de Votos],candidato.NomePopular,cargo.Nome ,partido.Sigla FROM Voto votos "+
+                    "INNER JOIN Candidato candidato ON votos.IDCandidato = candidato.IDCandidato "+
+                    "INNER JOIN Cargo cargo ON candidato.IDCargo = cargo.IDCargo "+
+                    "INNER JOIN Partido partido ON candidato.IDPartido = partido.IDPartido "+
+                    "GROUP BY votos.IDCandidato, candidato.NomePopular, cargo.Nome, partido.Sigla";
 
                 connection.Open();
 
@@ -62,30 +64,5 @@ namespace urna
             }
             return lista;
         }
-
-        /*public int BuscarNumeroDeVotosPorCandidato(int idCandidato)
-        {
-            int quantVotos = 0;
-
-            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
-            using (IDbConnection connection = new SqlConnection(connectionString))
-            {
-                IDbCommand comando = connection.CreateCommand();
-                comando.CommandText =
-                    "Select COUNT(1) AS Numero_Votos FROM Voto WHERE IDCandidato=@paramIdCandidato";
-
-                comando.AddParameter("paramIdCandidato", idCandidato);
-
-                connection.Open();
-
-                IDataReader reader = comando.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    quantVotos = Convert.ToInt32(reader["Numero_Votos"]);
-                }
-            }
-            return quantVotos;
-        }*/
     }
 }

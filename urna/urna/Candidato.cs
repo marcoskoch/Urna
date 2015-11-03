@@ -8,6 +8,7 @@ namespace urna
 {
     public class Candidato
     {
+        public int IdCandidato { get; set; }
         public string NomeCompleto { get; private set; }
         public string NomePopular { get; private set; }
         public DateTime DataNascimento { get; private set; }

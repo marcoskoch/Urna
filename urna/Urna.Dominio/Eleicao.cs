@@ -62,6 +62,43 @@ namespace urna
             return message;
         }
 
+        public string EditarCandidato(int id,Candidato candidato)
+        {
+            if (EleicaoComecou)
+                return "Alterações não podem ser feitas após o inicio das eleições";
+            string message;
+            bool nomeEstaVazio = string.IsNullOrEmpty(candidato.NomeCompleto) || string.IsNullOrEmpty(candidato.NomePopular);
+            if (nomeEstaVazio)
+            {
+                message = "O nome popular e o nome Completo não podem estar vazios";
+            }
+            else
+            {
+                int idCargoPrefeito = BaseDeCargos.BuscarIDDoCargoPorNome("Prefeito");
+
+                bool jaExistePrefeitoNestePartido = BaseDeCandidatos
+                    .ExisteCandidatoAPrefeitoNestePartido(idCargoPrefeito, candidato.IDPartido);
+
+                if (candidato.IDCargo == idCargoPrefeito && jaExistePrefeitoNestePartido)
+                {
+                    message = "Já existe um candidato a prefeito neste partido";
+                }
+                else
+                {
+                    if (BaseDeCandidatos.ValidarSeCandidatoExiste(candidato))
+                    {
+                        message = "O número, o registro TRE e o nome popular deve ser único";
+                    }
+                    else
+                    {
+                        BaseDeCandidatos.AtualizarPorId(id,candidato);
+                        message = "Candidato editado com sucesso";
+                    }
+                }
+            }
+            return message;
+        }
+
         public string CadastrarPartido(Partido partido)
         {
             if (EleicaoComecou)
